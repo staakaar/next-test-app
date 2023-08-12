@@ -1,5 +1,5 @@
 import { theme } from 'themes'
-import type { ResponsiveProp, Responsive } from 'types'
+import type { ResponsiveProp, Responsive } from '../types/styles'
 
 type AppTheme = typeof theme
 
@@ -9,11 +9,11 @@ type FontSizeThemeKeys = keyof typeof theme.fontSizes
 type LetterSpacingThemeKeys = keyof typeof theme.letterSpacings
 type LineHeightThemeKeys = keyof typeof theme.lineHeights
 
-export const Space = SpaceThemeKeys | (string & {})
-export const Color = ColorThemeKeys | (string & {})
-export const FontSize = FontSizeThemeKeys | (string & {})
-export const LetterSpacing = LetterSpacingThemeKeys | (string & {})
-export const LineHeight = LineHeightThemeKeys | (string & {})
+export type Space = SpaceThemeKeys | (string & {})
+export type Color = ColorThemeKeys | (string & {})
+export type FontSize = FontSizeThemeKeys | (string & {})
+export type LetterSpacing = LetterSpacingThemeKeys | (string & {})
+export type LineHeight = LineHeightThemeKeys | (string & {})
 
 const BREAKPOINTS: { [key: string]: string } = {
     sm: '640px',

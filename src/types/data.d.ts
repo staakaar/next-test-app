@@ -1,8 +1,8 @@
-export const Category = 'shoes' | 'clothes' | 'book'
+export type Category = 'shoes' | 'clothes' | 'book'
 
-export const Condition = 'new' | 'used'
+export type Condition = 'new' | 'used'
 
-export const User = {
+export type User = {
     id: number,
     userName: string,
     displayName: string,
@@ -11,7 +11,7 @@ export const User = {
     description: string
 }
 
-export const product = {
+export type product = {
     id: number,
     category: Category,
     title: string,
@@ -23,6 +23,6 @@ export const product = {
     owner: User
 }
 
-export const ApiContext = {
+export type ApiContext = {
     apiRootUrl: string
 }
