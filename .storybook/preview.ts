@@ -32,7 +32,6 @@ export const GlobalStyle = createGlobalStyle`
   }
 `
 
-
 const originalNextImage = NextImage.default;
 
 Object.defineProperty(NextImage, 'default', {
@@ -43,3 +42,7 @@ Object.defineProperty(NextImage, 'default', {
     <OriginalNextImage {...props} unoptimized />
   ),
 })
+function withThemeFromJSXProvider(arg0: { themes: { light: any; }; defaultTheme: string; Provider: (props: { children?: import("react").ReactNode; theme: import("styled-components").DefaultTheme | ((outerTheme?: import("styled-components").DefaultTheme | undefined) => import("styled-components").DefaultTheme); }) => JSX.Element | null; GlobalStyles: any; }) {
+  throw new Error('Function not implemented.');
+}
+

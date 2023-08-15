@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Responsive } from '../../../types/styles'
+import { Responsive } from 'types/styles'
 import { toPropValue, Color, FontSize, LetterSpacing, LineHeight, Space } from 'utils/styles'
 import React from 'react'
 
@@ -150,7 +150,7 @@ const Button = styled.button<ButtonProps>`
     cursor: pointer;
     outline: 0;
     text-decoration: 'none';
-    opacity: ${({ disabled }) => (disalbed ? '0.5' : '1' )};
+    opacity: ${({ disabled }) => (disabled ? '0.5' : '1' )};
     border-radius: 4px;
     border: none;
 `
