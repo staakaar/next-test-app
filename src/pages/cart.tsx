@@ -1,0 +1,44 @@
+import type { NextPage } from 'next'
+import Link from 'next/link'
+import BreadcrumbItem from 'components/atoms/BreadcrumbItem'
+import Text from 'components/atoms/Text'
+import Box from 'components/layout/Box'
+import Flex from 'components/layout/Flex'
+import { Breadcrumb } from 'components/molecules/Breadcrumb'
+import Layout from 'components/templates/Layout'
+import CartContainer from 'containers/CartContainer'
+import { useAuthGaurd } from 'utils/hooks'
+
+const CartPage: NextPage = () => {
+    useAuthGaurd()
+
+    return (
+        <Layout>
+            <Flex
+                paddingTop={2}
+                paddingBottom={2}
+                paddingLeft={{ base: 2, md: 0 }}
+                paddingRight={{ base: 2, md: 0 }}
+                justifyContent="center"
+            >
+                <Box width="1240px">
+                    <Breadcrumb>
+                        <BreadcrumbItem>
+                            <Link href="/">
+                                <a>トップ</a>
+                            </Link>
+                        </BreadcrumbItem>
+                    </Breadcrumb>
+                    <Box>
+                        <Text display="block" variant="large" as="h1">
+                            カート
+                        </Text>
+                        <CartContainer />
+                    </Box>
+                </Box>
+            </Flex>
+        </Layout>
+    )
+}
+
+export default CartPage
