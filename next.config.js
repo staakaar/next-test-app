@@ -1,6 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     reactStrictMode: true,
+    i18n: {
+        locales: ['ja', 'en'],
+        defaultLocale: 'jp',
+        domains: [
+            {
+                domain: 'example.jp',
+                defaultLocale: 'ja',
+            },
+            {
+                domain: 'example.com',
+                defaultLocale: 'en',
+            },
+        ],
+    },
     compiler: (() => { 
         let compilerConfig = {
             styledComponents: true,
