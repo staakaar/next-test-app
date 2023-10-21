@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
+module.exports = {
     reactStrictMode: true,
     i18n: {
-        locales: ['ja', 'en'],
+        locales: ['jp', 'en'],
         defaultLocale: 'jp',
         domains: [
             {
@@ -38,5 +38,3 @@ const nextConfig = {
         ]
     },
 }
-
-export default nextConfig
