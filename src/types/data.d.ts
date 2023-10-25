@@ -11,7 +11,7 @@ export type User = {
     description: string
 }
 
-export type product = {
+export type Product = {
     id: number,
     category: Category,
     title: string,
@@ -21,6 +21,12 @@ export type product = {
     price: number,
     condition: Condition,
     owner: User
+}
+
+export type UseProduct = {
+    product?: Product | Product[]
+    isLoading: boolean
+    isError: boolean
 }
 
 export type ApiContext = {
