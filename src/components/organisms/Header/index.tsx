@@ -2,9 +2,7 @@ import Link from 'next/link'
 import styled from 'styled-components'
 import AppLogo from 'components/atoms/AppLogo'
 import Button from 'components/atoms/Button'
-import {
-    searchIcon, PersonIcon, shoppingCartIcon,
-} from 'components/atoms/IconButton'
+import { PersonIcon, SearchIcon, ShoppingCartIcon } from 'components/atoms/IconButton'
 import ShapeImage from 'components/atoms/ShapeImage'
 import Spinner from 'components/atoms/Spinner'
 import Box from 'components/layout/Box'
@@ -12,7 +10,7 @@ import Text from 'components/atoms/Text'
 import Flex from 'components/layout/Box'
 import BadgeIconButton from 'components/molecules/BadgeIconButton'
 import { useAuthContext } from 'contexts/AuthContext'
-import { useShppingCartContext } from 'contexts/ShppingCartContext'
+import { useShoppingCartContext } from 'contexts/ShoppingCartContext'
 
 const HeaderRoot = styled.header`
     height: 88px;
@@ -32,18 +30,18 @@ const NavLink = styled.span`
 
 const Anchor = styled(Text)`
     cursor: pointer;
-    &:hober {
+    &:hover {
         text-decoration: underline;
     }
 `
 
 const Header = () => {
-    const { cart } = useShppingCartContext()
+    const { cart } = useShoppingCartContext()
     const { authUser, isLoading } = useAuthContext()
 
     return (
         <HeaderRoot>
-            <Flex paddingLeft={3} paddingRight={3} justifyContent="space-between">
+            <Flex paddingleft={3} paddingright={3} justifyContent="space-between">
                 <Nav as="nav" height="56px" alignItems="center">
                     <NavLink>
                         <Link href="/" passHref>
@@ -85,7 +83,7 @@ const Header = () => {
                             <Box display={{ base: 'block', md: 'none' }}>
                                 <Link href="/search" passHref>
                                     <Anchor as="a">
-                                        <searchIcon />
+                                        <SearchIcon />
                                     </Anchor>
                                 </Link>
                             </Box>

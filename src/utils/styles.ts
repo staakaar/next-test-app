@@ -1,7 +1,7 @@
 import { theme } from 'themes'
 import type { ResponsiveProp, Responsive } from '../types/styles'
 
-type AppTheme = typeof theme
+export type AppTheme = typeof theme
 
 type SpaceThemeKeys = keyof typeof theme.space
 type ColorThemeKeys = keyof typeof theme.colors
