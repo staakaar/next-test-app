@@ -2,7 +2,7 @@ import React from 'react'
 import { GetServerSideProps } from 'next'
 import getAllUsers from 'services/users/get-all-users'
 import type { ApiContext } from 'types/data'
-import getAllProduct from 'services/products/get-all-products'
+import getAllProduct from 'services/products/get-all-product'
 
 const SiteMap = () => null
 
@@ -43,9 +43,9 @@ const getProductPagesInfo = async (): Promise<SitemapInfo[]> => {
         apiRootUrl: process.env.API_BASE_URL || 'http://localhost:5000',
     }
 
-    const products = await getAllProduct(context)
+    const products = getAllProduct(context)
 
-    return products.map((product) => ({
+    return products.map((product: { id: any }) => ({
         path: `/products/${product.id}`,
         changefreq: 'daily',
         priority: 0.5

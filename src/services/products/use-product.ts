@@ -1,15 +1,9 @@
 import useSWR from "swr";
-import type { ApiContext, Product } from "types/data";
+import type { ApiContext, Product, UseProduct } from "types/data";
 
 export type UseProductProps = {
     id: number
     initial?: Product
-}
-
-export type UseProduct = {
-    product?: Product
-    isLoading: boolean
-    isError: boolean
 }
 
 const useProduct = (

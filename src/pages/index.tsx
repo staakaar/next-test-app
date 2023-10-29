@@ -6,9 +6,9 @@ import Flex from 'components/layout/Flex'
 import ProductCard from "components/organisms/ProductCard";
 import ProductCardCarousel from 'components/organisms/ProductCardCarousel'
 import Layout from 'components/templates/Layout'
-import getAllProducts from 'services/products/get-all-priducts'
+import getAllProducts from 'services/products/get-all-product'
 import { ApiContext, Product } from "types/data";
-import { getStaticProps } from "./users/[id]";
+import { getUserStaticProps } from "./users/[id]";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -49,10 +49,10 @@ const HomePage: NextPage<HomePageProps> =({
                     flexDirection={{base: 'column', md: 'row' }}
                 >
                     <Box width="100%">
-                        <Text as="h1" marginBottom={0} color="white" variant="extraLarge">
+                        <Text as="h1" marginbottom={0} color="white" variant="extraLarge">
                             Gihyo C2Cで
                         </Text>
-                        <Text as="h1" marginTop={0} color="white" variant="extraLarge">
+                        <Text as="h1" margintop={0} color="white" variant="extraLarge">
                             お気に入りのアイテムを見つけよう
                         </Text>
                     </Box>
@@ -116,8 +116,8 @@ export const getStaticProps: GetStaticProps = async () => {
 
     const [clothesProducts, bookProducts, shoesProducts] = await Promise.all([
         getAllProducts(context, { category: 'clothes', limit: 6, page: 1}),
-        getAllProducts(context, { cetegory: 'book', limit: 6, page: 1 }),
-        getAllProducts(context, { cetegory: 'shoes', limit: 6, page: 1 }),
+        getAllProducts(context, { category: 'book', limit: 6, page: 1 }),
+        getAllProducts(context, { category: 'shoes', limit: 6, page: 1 }),
     ])
 
     return {
