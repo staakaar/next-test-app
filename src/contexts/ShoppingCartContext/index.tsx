@@ -1,6 +1,6 @@
 import React, { useReducer, useContext } from 'react'
 import { shopReducer, ADD_PRODUCT, REMOVE_PRODUCT } from "./reducers";
-import type { Product } from 'types'
+import type { Product } from 'types/data'
 
 type ShoppingCartContextType = {
     cart: Product[]

@@ -34,7 +34,7 @@ const ProductFormContainer = ({
 
         try {
             setGlobalSpinner(true)
-            const ret = await addProduct(context, { product })
+            const ret = addProduct(context, { product })
             onSave && onSave(undefined, ret)
         } catch (err: unknown) {
             if (err instanceof Error) {

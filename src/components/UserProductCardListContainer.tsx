@@ -22,14 +22,12 @@ const UserProductCardListContainer = ({ userId, products }: UserProductCardListC
             {userProducts.map((p: any) => (
                 <Fragment key={p.id}>
                     <Link href={`/products/${p.id}`} passHref>
-                        <a>
-                            <ProductCard
-                                variant="small"
-                                title={p.title}
-                                price={p.price}
-                                imageUrl={p.imageUrl}
-                            />
-                        </a>
+                        <ProductCard
+                            variant="small"
+                            title={p.title}
+                            price={p.price}
+                            imageUrl={p.imageUrl}
+                        />
                     </Link>
                 </Fragment>
             ))}

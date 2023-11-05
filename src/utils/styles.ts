@@ -1,7 +1,7 @@
 import { theme } from 'themes'
 import type { ResponsiveProp, Responsive } from '../types/styles'
 
-export type AppTheme = typeof theme
+export type AppTheme = keyof typeof theme
 
 type SpaceThemeKeys = keyof typeof theme.space
 type ColorThemeKeys = keyof typeof theme.colors
@@ -34,7 +34,7 @@ export function toPropValue<T>(
         for (const responsiveKey in prop) {
             if (responsiveKey === 'base') {
                 result.push(
-                    `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme,)};`,
+                    `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme)};`,
                 )
             } else if (
                 responsiveKey === 'sm' ||
@@ -43,7 +43,7 @@ export function toPropValue<T>(
                 responsiveKey === 'xl'
             ) {
                 const breakpoint = BREAKPOINTS[responsiveKey]
-                const style = `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme,)};`
+                const style = `${propKey}: ${toThemeValueIfNeeded(propKey, prop[responsiveKey], theme)};`
                 result.push(`@media screen and (min-width: ${breakpoint}) {${style}}`)
             }
         }
