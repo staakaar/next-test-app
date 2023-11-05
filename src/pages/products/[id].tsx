@@ -16,11 +16,11 @@ import ProductCard from 'components/organisms/ProductCard'
 import UserProfile from 'components/organisms/UserProfile'
 import Layout from 'components/templates/Layout'
 import AddToCartButtonContainer from 'containers/AddToCartButtonContainer'
-import getAllProducts from 'services/products/get-all-products'
+import getAllProducts from 'services/products/get-all-product'
 import getProduct from 'services/products/get-product'
 import useProduct from 'services/products/use-product'
 import type { ApiContext, Category } from 'types/data'
-import { getStaticProps } from 'pages'
+// import { getStaticProps } from 'pages'
 import { NextPage } from 'next'
 
 const categoryNameDict: Record<Category, string> = {
@@ -67,17 +67,17 @@ const ProductPage: NextPage<ProductPageProps> = ({
                     <Breadcrumb>
                         <BreadcrumbItem>
                             <Link href="/">
-                                <a>トップ</a>
+                                トップ
                             </Link>
                         </BreadcrumbItem>
                         <BreadcrumbItem>
                             <Link href="/search">
-                                <a>検索</a>
+                                検索
                             </Link>
                         </BreadcrumbItem>
                         <BreadcrumbItem>
                             <Link href={`/search/${product.category}`}>
-                                <a>{categoryNameDict[product.category as Category]}</a>
+                                {categoryNameDict[product.category as Category]}
                             </Link>
                         </BreadcrumbItem>
                         <BreadcrumbItem>{product.title}</BreadcrumbItem>
@@ -92,18 +92,16 @@ const ProductPage: NextPage<ProductPageProps> = ({
                     </Flex>
                     <Separator />
                     <Box>
-                        <Text as="h2" variant='large' marginTop={0}>
+                        <Text as="h2" variant="large" marginTop={0}>
                             出品者
                         </Text>
                         <Link href={`/users/${product.owner.id}`}>
-                            <a>
-                                <UserProfile 
-                                    variant="small"
-                                    username={product.owner.username}
-                                    profileImageUrl={product.owner.profileImageUrl}
-                                    numberOfProducts={100}
-                                />
-                            </a>
+                            <UserProfile 
+                                variant="small"
+                                username={product.owner.username}
+                                profileImageUrl={product.owner.profileImageUrl}
+                                numberOfProducts={100}
+                            />
                         </Link>
                     </Box>
                 </Box>

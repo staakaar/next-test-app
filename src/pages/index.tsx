@@ -9,6 +9,8 @@ import Layout from 'components/templates/Layout'
 import getAllProducts from 'services/products/get-all-product'
 import { ApiContext, Product } from "types/data";
 import { getUserStaticProps } from "./users/[id]";
+import { styled } from "styled-components";
+import Button from 'components/atoms/Button'
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -23,15 +25,13 @@ const HomePage: NextPage<HomePageProps> =({
                 {products.map((p: Product, i: number) => (
                     <Box paddingLeft={i === 0 ? 0 : 2} key={p.id}>
                         <Link href={`/products/#{p.id}`} passHref>
-                            <a>
-                                <ProductCard
-                                    variant="small"
-                                    title={p.title}
-                                    price={p.price}
-                                    imageUrl={p.imageUrl}
-                                    blurDataUrl={p.blurDataUrl}
-                                />
-                            </a>
+                            <ProductCard
+                                variant="small"
+                                title={p.title}
+                                price={p.price}
+                                blurDataUrl={p.blurDataUrl}
+                                imageUrl={p.imageUrl}
+                            />
                         </Link>
                     </Box>
                 ))}
@@ -41,70 +41,33 @@ const HomePage: NextPage<HomePageProps> =({
 
     return (
         <Layout>
-            <Flex padding={2} justifyContent="center" backgroundColor="primary">
-                <Flex
-                    width={{ base: '100%', md: '1040px' }}
-                    justifyContent="space-between"
-                    alignItems="center"
-                    flexDirection={{base: 'column', md: 'row' }}
-                >
-                    <Box width="100%">
-                        <Text as="h1" marginbottom={0} color="white" variant="extraLarge">
-                            Gihyo C2Cで
-                        </Text>
-                        <Text as="h1" margintop={0} color="white" variant="extraLarge">
-                            お気に入りのアイテムを見つけよう
-                        </Text>
-                    </Box>
-                    <Box width="100%">
-                        <Text as="p" color="white" variant="mediumLarge">
-                            Gihyo
-                            C2Cは実践的なNext.jsアプリケーション開発で使われるデモアプリです。モックサーバーを使用しています。
-                            ソースコードは
-                            <Text
-                                as="a"
-                                style={{ textDecoration: 'underline' }}
-                                target="_blank"
-                                href="https://github.com/gihyo-book/ts-nextnook-app"
-                                variant="mediumLarge"
-                                color="white"
-                            >
-                                こちら
-                            </Text>
-                            のGithubからダウンロードできます。
-                        </Text>
-                        <Text as="p" color="white" variant="mediumLarge">
-                            このアプリはTypeScript/Next.jsでさくせいされており、バックエンドのモックAPIはjson-serverが使用されています。
-                        </Text>
-                    </Box>
-                </Flex>
-            </Flex>
-            <Flex paddingBottom={2} justifyContent="center">
-                <Box
-                    paddingLeft={{ base: 2, md: 0 }}
-                    paddingRight={{ base: 2, md: 0 }}
-                    width={{ base: '100%', md: '1040px'}}
-                >
-                    <Box marginBottom={3}>
-                        <Text as="h2" variant="large">
-                            トップス
-                        </Text>
-                        {renderProductCardCarousel(clothesProducts)}
-                    </Box>
-                    <Box marginBottom={3}>
-                        <Text as="h2" variant="large">
-                            本
-                        </Text>
-                        {renderProductCardCarousel(bookProducts)}
-                    </Box>
-                    <Box marginBottom={3}>
-                        <Text as="h2" variant="large">
-                            シューズ
-                        </Text>
-                        {renderProductCardCarousel(shoesProducts)}
-                    </Box>
+            <Button variant="primary" color="primary" height="40px" width="100px">
+                新規作成
+            </Button>
+            <Box
+                marginLeft={{ base: 2, md: 0 }}
+                marginRight={{ base: 2, md: 0 }}
+                width={{ base: '100%', md: '1040px'}}
+            >
+                <Box marginBottom={3}>
+                    <Text as="h2" variant="large">
+                        トップス
+                    </Text>
+                    {renderProductCardCarousel(clothesProducts)}
                 </Box>
-            </Flex>
+                <Box marginBottom={3}>
+                    <Text as="h2" variant="large">
+                        本
+                    </Text>
+                    {renderProductCardCarousel(bookProducts)}
+                </Box>
+                <Box marginBottom={3}>
+                    <Text as="h2" variant="large">
+                        シューズ
+                    </Text>
+                    {renderProductCardCarousel(shoesProducts)}
+                </Box>
+            </Box>
         </Layout>
     )
 }

@@ -59,7 +59,7 @@ const getUserPagesInfo = async (): Promise<SitemapInfo[]> => {
 
     const users = await getAllUsers(context)
 
-    return users.map((user) => ({
+    return users.map((user: { id: any }) => ({
         path: `/users/${user.id}`,
         changefreq: 'daily',
         priority: 0.5,

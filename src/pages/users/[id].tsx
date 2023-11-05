@@ -14,11 +14,11 @@ import Breadcrumb from 'components/molecules/Breadcrumb'
 import Layout from 'components/templates/Layout'
 import UserProductCardListContainer from 'containers/UserProductCardListContainer'
 import UserProfileContainer from 'containers/UserProfileContainer'
-import getAllProducts from 'services/users/get-all-users'
+import getAllUsers from 'services/users/get-all-users'
 import getUser from 'services/users/get-user'
 import type { ApiContext } from 'types/data'
 
-type UserPageProps = InferGetStaticPropsType<typeof getStaticProps>
+type UserPageProps = InferGetStaticPropsType<typeof getUserStaticProps>
 
 const UserPage: NextPage<UserPageProps> = ({
     id,
@@ -75,7 +75,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
     return { paths, fallback: true }
 }
 
-export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
+export const getUserStaticProps = async ({ params }: GetStaticPropsContext) => {
     const context: ApiContext = {
         apiRootUrl: process.env.API_BASE_URL || 'http://localhost:5000',
     }
@@ -87,7 +87,7 @@ export const getStaticProps = async ({ params }: GetStaticPropsContext) => {
     const userId = Number(params.id)
     const [user, products] = await Promise.all([
         getUser(context, { id: userId }),
-        getAllProducts(context, { userId })
+        getAllUsers(context)
     ])
 
     return {

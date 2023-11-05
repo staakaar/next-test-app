@@ -7,7 +7,7 @@ import Text from 'components/atoms/Text'
 import Box from 'components/layout/Box'
 import Flex from "components/layout/Flex";
 import Breadcrumb from 'components/molecules/Breadcrumb'
-import FilterGroup from 'components/molecules/Breadcrunmb'
+import FilterGroup from 'components/molecules/Breadcrumb'
 import Layout from 'components/templates/Layout'
 import ProductCardListContainer from 'containers/ProductCardListContainer'
 import type { Category, Condition } from 'types/data'
@@ -65,18 +65,18 @@ const SearchPage: NextPage = () => {
                     <Breadcrumb>
                         <BreadcrumbItem>
                             <Link href="/">
-                                <a>トップ</a>
+                                トップ
                             </Link>
                         </BreadcrumbItem>
                         <BreadcrumbItem>
                             <Link href="/">
-                                <a>検索</a>
+                                検索
                             </Link>
                         </BreadcrumbItem>
                         {slug.slice(0, slug.length -1).map((category, i) => (
                             <BreadcrumbItem>
                                 <Link href={`/search/${slug.slice(0, i + 1).join('/')}`}>
-                                    <a>{categoryNameDict[category] ?? 'Unknown'}</a>
+                                    {categoryNameDict[category] ?? 'Unknown'}
                                 </Link>
                             </BreadcrumbItem>
                         ))}
