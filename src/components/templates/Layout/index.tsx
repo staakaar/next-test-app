@@ -9,17 +9,20 @@ interface LayoutProps {
 }
 
 const Container = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 100%;
-    grid-template-rows: 60px 700px 100px;
+    width: 100vw;
+    height: 100vh;
+`
+
+const MainWrapper = styled.div`
+    display: flex;
+    width: 100vw;
+    height: 80vh;
 `
 
 const MainMenu = styled.div`
     width: 100%;
-    grid-column-start: 2;
-    grid-column-end: 3;
-    grid-row-start: 2;
-    grid-row-end: 3;
+    height: 100%;
+    margin: 20px, 0;
 `
 
 const Layout = ({ children }: LayoutProps) => {
@@ -27,10 +30,12 @@ const Layout = ({ children }: LayoutProps) => {
         <>
             <Container>
                 <Header />
-                <SideMenu />
-                <MainMenu>
-                    {children}
-                </MainMenu>
+                <MainWrapper>
+                    <SideMenu />
+                    <MainMenu>
+                        {children}
+                    </MainMenu>
+                </MainWrapper>
                 <Footer />
             </Container>
         </>

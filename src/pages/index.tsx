@@ -6,11 +6,14 @@ import Flex from 'components/layout/Flex'
 import ProductCard from "components/organisms/ProductCard";
 import ProductCardCarousel from 'components/organisms/ProductCardCarousel'
 import Layout from 'components/templates/Layout'
+import TableContainer from 'components/molecules/TableContainer'
 import getAllProducts from 'services/products/get-all-product'
 import { ApiContext, Product } from "types/data";
 import { getUserStaticProps } from "./users/[id]";
 import { styled } from "styled-components";
 import Button from 'components/atoms/Button'
+import Drawer from "components/molecules/Drawer";
+import { useDrawer } from "utils/hooks";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -19,37 +22,49 @@ const HomePage: NextPage<HomePageProps> =({
     clothesProducts,
     shoesProducts,
 }: HomePageProps) => {
-    const renderProductCardCarousel = (products: Product[]) => {
-        return (
-            <ProductCardCarousel>
-                {products.map((p: Product, i: number) => (
-                    <Box paddingLeft={i === 0 ? 0 : 2} key={p.id}>
-                        <Link href={`/products/#{p.id}`} passHref>
-                            <ProductCard
-                                variant="small"
-                                title={p.title}
-                                price={p.price}
-                                blurDataUrl={p.blurDataUrl}
-                                imageUrl={p.imageUrl}
-                            />
-                        </Link>
-                    </Box>
-                ))}
-            </ProductCardCarousel>
-        )
-    }
+    const { isOpen, onOpen, onClose } = useDrawer();
+    console.log(isOpen)
+
+    // const renderProductCardCarousel = (products: Product[]) => {
+    //     return (
+    //         <ProductCardCarousel>
+    //             {products.map((p: Product, i: number) => (
+    //                 <Box paddingLeft={i === 0 ? 0 : 2} key={p.id}>
+    //                     <Link href={`/products/#{p.id}`} passHref>
+    //                         <ProductCard
+    //                             variant="small"
+    //                             title={p.title}
+    //                             price={p.price}
+    //                             blurDataUrl={p.blurDataUrl}
+    //                             imageUrl={p.imageUrl}
+    //                         />
+    //                     </Link>
+    //                 </Box>
+    //             ))}
+    //         </ProductCardCarousel>
+    //     )
+    // }
 
     return (
         <Layout>
-            <Button variant="primary" color="primary" height="40px" width="100px">
+            <Button 
+                onClick={onOpen}
+                aria-expanded={isOpen}
+                variant="primary"
+                color="primary"
+                height="40px"
+                width="100px"
+            >
                 新規作成
             </Button>
-            <Box
+            <Drawer isOpen={isOpen} onClose={onClose} />
+            {/* <Box
                 marginLeft={{ base: 2, md: 0 }}
                 marginRight={{ base: 2, md: 0 }}
                 width={{ base: '100%', md: '1040px'}}
-            >
-                <Box marginBottom={3}>
+            > */}
+            <TableContainer data={clothesProducts}></TableContainer>
+                {/* <Box marginBottom={3}>
                     <Text as="h2" variant="large">
                         トップス
                     </Text>
@@ -66,8 +81,8 @@ const HomePage: NextPage<HomePageProps> =({
                         シューズ
                     </Text>
                     {renderProductCardCarousel(shoesProducts)}
-                </Box>
-            </Box>
+                </Box> */}
+            {/* </Box> */}
         </Layout>
     )
 }
