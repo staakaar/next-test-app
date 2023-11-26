@@ -14,6 +14,7 @@ import { styled } from "styled-components";
 import Button from 'components/atoms/Button'
 import Drawer from "components/molecules/Drawer";
 import { useDrawer } from "utils/hooks";
+import { useState } from "react";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -22,8 +23,17 @@ const HomePage: NextPage<HomePageProps> =({
     clothesProducts,
     shoesProducts,
 }: HomePageProps) => {
+    /** 新規作成ボタン */
     const { isOpen, onOpen, onClose } = useDrawer();
+    /** 詳細ボタン */
+    const detailDrawer = useDrawer();
+    const [ product, setProduct ] = useState({});
     console.log(isOpen)
+
+    const updateProduct = (event: any, product: Product) => {
+        detailDrawer.isOpen = true
+        setProduct(product);
+    }
 
     // const renderProductCardCarousel = (products: Product[]) => {
     //     return (
@@ -57,13 +67,19 @@ const HomePage: NextPage<HomePageProps> =({
             >
                 新規作成
             </Button>
-            <Drawer isOpen={isOpen} onClose={onClose} />
+            <Drawer isOpen={isOpen} onClose={onClose}>
+                {/* 詳細ページを埋め込む */}
+            </Drawer>
             {/* <Box
                 marginLeft={{ base: 2, md: 0 }}
                 marginRight={{ base: 2, md: 0 }}
                 width={{ base: '100%', md: '1040px'}}
             > */}
-            <TableContainer data={clothesProducts}></TableContainer>
+            <TableContainer data={clothesProducts} updateProduct={updateProduct}></TableContainer>
+            <Drawer isOpen={detailDrawer.isOpen} onClose={detailDrawer.onClose}>
+                {/* 詳細ページを埋め込む */}
+                <div>あいうえお</div>
+            </Drawer>
                 {/* <Box marginBottom={3}>
                     <Text as="h2" variant="large">
                         トップス
