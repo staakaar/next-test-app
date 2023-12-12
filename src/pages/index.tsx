@@ -11,10 +11,11 @@ import getAllProducts from 'services/products/get-all-product'
 import { ApiContext, Product } from "types/data";
 import { getUserStaticProps } from "./users/[id]";
 import { styled } from "styled-components";
-import Button from 'components/atoms/Button'
+// import Button from 'components/atoms/Button'
 import Drawer from "components/molecules/Drawer";
 import { useDrawer } from "utils/hooks";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import Button from "@mui/material/Button";
 
 type HomePageProps = InferGetStaticPropsType<typeof getStaticProps>
 
@@ -23,12 +24,10 @@ const HomePage: NextPage<HomePageProps> =({
     clothesProducts,
     shoesProducts,
 }: HomePageProps) => {
-    /** 新規作成ボタン */
-    const { isOpen, onOpen, onClose } = useDrawer();
+    const tableContainerRef = useRef();
     /** 詳細ボタン */
     const detailDrawer = useDrawer();
     const [ product, setProduct ] = useState({});
-    console.log(isOpen)
 
     const updateProduct = (event: any, product: Product) => {
         detailDrawer.isOpen = true
@@ -57,28 +56,15 @@ const HomePage: NextPage<HomePageProps> =({
 
     return (
         <Layout>
-            <Button 
-                onClick={onOpen}
-                aria-expanded={isOpen}
-                variant="primary"
-                color="primary"
-                height="40px"
-                width="100px"
-            >
-                新規作成
-            </Button>
-            <Drawer isOpen={isOpen} onClose={onClose}>
-                {/* 詳細ページを埋め込む */}
-            </Drawer>
             {/* <Box
                 marginLeft={{ base: 2, md: 0 }}
                 marginRight={{ base: 2, md: 0 }}
                 width={{ base: '100%', md: '1040px'}}
             > */}
-            <TableContainer data={clothesProducts} updateProduct={updateProduct}></TableContainer>
-            <Drawer isOpen={detailDrawer.isOpen} onClose={detailDrawer.onClose}>
+            <TableContainer data={clothesProducts} updateProduct={updateProduct} />
+            <Drawer isOpen={detailDrawer.isOpen} onClose={detailDrawer.onClose} >
                 {/* 詳細ページを埋め込む */}
-                <div>あいうえお</div>
+                <div>test</div>
             </Drawer>
                 {/* <Box marginBottom={3}>
                     <Text as="h2" variant="large">

@@ -1,3 +1,4 @@
+import '../app/ui/global.css';
 import { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import Head from 'next/head'
