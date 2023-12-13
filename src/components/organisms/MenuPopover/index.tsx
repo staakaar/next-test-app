@@ -1,6 +1,5 @@
-import { Popover, Transition } from "@headlessui/react";
-import { Button, Link, Menu, MenuItem, MenuList, Paper } from "@mui/material";
-import { useState } from "react";
+import { Menu, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 
 interface Category {
     id: number
@@ -26,55 +25,69 @@ const MenuPopover = (/**categories: Category[]*/) => {
     const [isMenuPopover, setIsMenuPopover] = useState(false);
 
     return (
-        <div>
-            <Popover className="relative">
-                {({ open }) => (
-                    <>
-                        <Popover.Button
-                            className="border-none inline-flex items-center rounded-m px-3 py-2 text-base font-medium"
-                            onMouseEnter={() => setIsMenuPopover(true)}
-                        >
-                            {/* <Button> */}
-                                すべて
-                            {/* </Button> */}
-                        </Popover.Button>
-                        {isMenuPopover && (
-                            <Transition
-                                show={open}
-                                enter="transition duration-100 ease-out"
-                                enterFrom="transform scale-95 opacity-0"
-                                enterTo="transform scale-100 opacity-100"
-                                leave="transition duration-75 ease-out"
-                                leaveFrom="transform scale-100 opacity-100"
-                                leaveTo="transform scale-95 opacity-0"
+        <div className="text-right">
+            <Menu as="div" className="relative inline-block text-left">
+                <div>
+                    <Menu.Button className="inline-flex w-full justify-center rounded-m px-4 py-2 text-sm font-medium text-black focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75">
+                        すべて
+                    </Menu.Button>
+                </div>
+                <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                >
+                    <div className='fixed top-10 right-full'>
+                    <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
+                        <div className="px-1 py-1 ">
+                        <Menu.Item>
+                            <button
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
-                                <Popover.Panel
-                                    className="
-                                        absolute
-                                        mt-3
-                                        w-screen
-                                        max-w-sm
-                                        -translate-x-1/2
-                                        transform
-                                        px-4 
-                                        sm:px-0
-                                        lg:max-w-3xl"
-                                >
-                                    <Menu>
-                                        {categories.map((category) => (
-                                            <MenuItem className="w-4 h-4">
-                                                <Link key={category.id}>
-                                                    testtest
-                                                </Link>
-                                            </MenuItem>
-                                        ))}
-                                    </Menu>
-                                </Popover.Panel>
-                            </Transition>
-                        )}
-                    </>
-                )}
-            </Popover>
+                                Edit
+                            </button>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <button
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                                Duplicate
+                            </button>
+                        </Menu.Item>
+                        </div>
+                        <div className="px-1 py-1">
+                        <Menu.Item>
+                            <button
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                                Archive
+                            </button>
+                        </Menu.Item>
+                        <Menu.Item>
+                            <button
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                                Move
+                            </button>
+                        </Menu.Item>
+                        </div>
+                        <div className="px-1 py-1">
+                        <Menu.Item>
+                            <button
+                                className={`group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                            >
+                                Delete
+                            </button>
+                        </Menu.Item>
+                        </div>
+                    </Menu.Items>
+                    </div>
+                </Transition>
+            </Menu>
         </div>
     )
 }
