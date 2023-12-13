@@ -132,7 +132,7 @@ const Button = styled.button<ButtonProps>`
     ${(props)=> toPropValue('padding-top', props.paddingTop, props.theme)}
     ${(props)=> toPropValue('padding-left', props.paddingLeft, props.theme)}
     ${(props)=> toPropValue('padding-bottom', props.paddingBottom, props.theme)}
-    ${(props)=>toPropValue('padding-right', props.paddingRight, props.theme)}
+    ${(props)=> toPropValue('padding-right', props.paddingRight, props.theme)}
     &:hover {
         ${(props) =>
             toPropValue(

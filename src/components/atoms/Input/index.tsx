@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components'
+
 const Input = styled.input<{ hasError?: boolean; hasBorder?: boolean}>`
-    color: ${({ theme }) => theme.color.inputText};
+    color: ${({ theme }) => theme.colors};
     ${({ theme, hasBorder, hasError }) => {
         if (hasBorder) {
             return css`
                 border: 1px solid
-                ${hasError ? theme.colors.danger : theme.colors.border};
+                ${hasError ? theme.colors.danger : theme.colors};
+                border-radius: 5px;
             `
         } else {
             return css`
@@ -22,7 +24,7 @@ const Input = styled.input<{ hasError?: boolean; hasBorder?: boolean}>`
     line-height: 19px;
 
     &::placeholder {
-        color: ${({ theme }) => theme.colors.placeholder}
+        color: ${({ theme }) => theme.colors}
     }
     $::-webkit-outer-spin-button,
     $::-webkit-inner-spin-button {

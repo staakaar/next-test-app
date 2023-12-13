@@ -36,3 +36,5 @@ const Grid = styled(Box)<GridProps>`
 Grid.defaultProps = {
     display: 'grid',
 }
+
+export default Grid

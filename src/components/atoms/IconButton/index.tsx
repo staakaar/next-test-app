@@ -1,4 +1,4 @@
-import { Search, ShoppingCart, Person } from '@mui/icons-material'
+import { Search, ShoppingCart, Person, GitHub } from '@mui/icons-material'
 import SvgIcon from '@mui/material/SvgIcon'
 import styled from 'styled-components'
 import { theme } from 'themes'
@@ -24,7 +24,7 @@ const IconWrapper = styled.div<IconWrapperProps>`
         if (color) {
             return theme.colors[color]
         }
-        return theme.colors.icon
+        return theme.colors
     }};
     svg: {
         display: block;
@@ -58,6 +58,8 @@ function withIconStyle(Icon: typeof SvgIcon): React.ComponentType<IconButtonProp
 
     return IconWithStyle
 }
+
+export const GitHubIcon = withIconStyle(GitHub)
 
 export const PersonIcon = withIconStyle(Person)
 

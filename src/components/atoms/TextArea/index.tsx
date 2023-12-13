@@ -9,8 +9,7 @@ export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 }
 
 const StyledTextArea = styled.textarea<{ hasError?: boolean}>`
-    color: ${({ theme }) => theme.colors.inputText}
-    border: 1px solid ${({ theme, hasError }) => hasError ? theme.colors.danger : theme.colors.border};
+    color: ${({ theme }) => theme.colors};
     border-radius: 5px;
     box-sizing: border-box;
     outline: none;
@@ -23,7 +22,7 @@ const StyledTextArea = styled.textarea<{ hasError?: boolean}>`
     height: auto;
 
     &::placeholder {
-        color: ${({ theme}) => theme.colors.placeholder}
+        color: ${({ theme}) => theme.colors}
     }
 `
 
