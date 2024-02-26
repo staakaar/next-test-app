@@ -1,6 +1,6 @@
 ## レンダリング
 
-- CSR
+- 一覧画面はSSG それ以外の画面はCSRで統一
 
 ## CSS Module
 
@@ -150,7 +150,8 @@ function UsersList() {
     )
 }
 
-
+/** Redux Toolkit RTK Queryの場合 */
+/** 一覧 */
 import { useFetchAlbumsQuery } from '../src/lib/store.ts'
 function AlbumsList({ user }) {
     const { data, error, isLoading } = useFetchAlbumsQuery(user);
@@ -164,6 +165,24 @@ function AlbumsList({ user }) {
     return <div>Albums for {user.name} </div>;
 }
 export default AlbumsList;
+
+/** 削除 */
+function AlbumsListItem({ album }) {
+    const [removeAlbum, results] = useRemoveAlbumMutation();
+
+    const handleRemoveAlbum = () => {
+        removeAlbum(album);
+    };
+
+    const header = (
+        <div>
+            <Button loading={results.isLoading} onClick={handleRemoveAlbum}>
+                <GoTrashcan />
+            </Button>
+            {album.title}
+        </div>
+    )
+}
 ```
 
 ## Hooks
@@ -201,8 +220,21 @@ const albumsApi = createApi({
     }),
     endpoints(builder) {
         return {
+            removeAlbum: builder.mutation({
+                invalidatesTag: (result, error, album) => {
+                    return [{ type: 'Album', id: album.id }]
+                }
+                query: (album) => {
+                    return {
+                        url: `/albums/${album.id}`,
+                        method: 'DELETE',
+                    };
+                },
+            }),
             addAlbum: builder.mutation({
-                invalidatesTags: ['Album'],
+                invalidatesTags: (result, error, user) => {
+                    return [{ type: 'UsersAlbums', id: user.id }];
+                },
                 query: (user) => {
                     return {
                         url: '/albums',
@@ -215,7 +247,13 @@ const albumsApi = createApi({
                 }
             })
             fetchAlbums: builder.query({
-                providesTags: ['Album'],
+                providesTags: (result, error, user) => {
+                    const tags = result.map(album => {
+                        return { type: 'Album', id: album.id }
+                    });
+                    tags.push({ type: 'UsersAlbums', id: user.id });
+                    return tags;
+                },
                 query: (user) => {
                     return {
                         url: '/albums',
@@ -248,6 +286,20 @@ export const store = configureStore({
 ```
 
 ## Headeless UI調査
+
+`前提` MaterialUI ChakraUIなどに比べてカスタマイズ可能だがスタイリングに工数が必要
+`現状` 現状、Vuetifyを利用して特段不便と感じることがないためMaterialUI or ChakraUIが良さそう
+
+- Headless UI TailwindCSSと相性◎ 技術記事比較的投稿されている印象
+- Radix-ui バンドルサイズを抑えることは可能 技術記事も多い
+- react-aria hooksベースで実装 難易度が少し高め 記事はあまりない印象
+- ariakit　フォームコンポーネント豊富
+
 ## Store 調査
 ## CSS Module調査
+
+- 
+- 
+- 
+
 ## ディレクトリ構造 調査
