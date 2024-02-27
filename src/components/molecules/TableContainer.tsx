@@ -1,16 +1,11 @@
 "use client";
 import { Box, Button, Stack, Table, TableBody, TableCell, TableContainer, TableHead, TablePagination, TableRow, Typography } from "@mui/material";
-import { 
-    flexRender,
-} from "@tanstack/react-table";
-// import Box from "components/layout/Box";
 import { Key, forwardRef, useEffect, useState } from "react";
-import { Product } from "types/data";
 import { useDrawer } from "utils/hooks";
 import Drawer from "./Drawer";
 
 interface Column {
-    id: 'name' | 'code' | 'population' | 'size' | 'density';
+    id: 'id' | 'title' | 'description' | 'category' | 'price' | 'owner';
     label: string;
     minWidth?: number;
     align?: 'right';
@@ -18,27 +13,34 @@ interface Column {
 }
 
 const columns: readonly Column[] = [
-    { id: 'name', label: 'Name', minWidth: 170 },
-    { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
+    { id: 'id', label: 'id', minWidth: 50 },
+    { id: 'title', label: 'title', minWidth: 100 },
     {
-        id: 'population',
-        label: 'Population',
-        minWidth: 170,
-        align: 'right',
+        id: 'description',
+        label: 'description',
+        minWidth: 200,
+        align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'size',
-        label: 'Size\u00a0(km\u00b2)',
-        minWidth: 170,
-        align: 'right',
+        id: 'category',
+        label: 'category',
+        minWidth: 100,
+        align: 'left',
         format: (value: number) => value.toLocaleString('en-US'),
     },
     {
-        id: 'density',
-        label: 'Density',
-        minWidth: 170,
-        align: 'right',
+        id: 'price',
+        label: 'Price',
+        minWidth: 100,
+        align: 'left',
+        format: (value: number) => value.toFixed(2),
+    },
+    {
+        id: 'owner',
+        label: 'owner',
+        minWidth: 100,
+        align: 'left',
         format: (value: number) => value.toFixed(2),
     },
 ];
@@ -48,7 +50,8 @@ interface TableContainerProps {
     updateProduct: (row: any) => void
 }
 
-const ProductTableContainer = (products: any, updateProduct: any) => {
+const ProductTableContainer = (products: any) => {
+    /** storeで管理 */
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
 
@@ -60,30 +63,23 @@ const ProductTableContainer = (products: any, updateProduct: any) => {
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
+    const rowClick = (product: { [x: string]: any; code: Key | null | undefined; }) => {
+        console.log(product)
+        debugger
+    }
+
     /** 新規作成ボタン */
     const { isOpen, onOpen, onClose } = useDrawer();
-    // const [isClient, setIsClient] = useState(false)
-
-    // useEffect(() => {
-    //     setIsClient(true)
-    // }, [])
-
-    console.log(products)
-    
-    // if (!isClient) return
-
-    /** TODO: 関数を渡すことができないためContextで実装 */
-    // const openDrawer = (event: any, row: MRT_Row<Product>) => {
-    //     updateProduct(row.getValue);
-    // }
 
     return (
-        <Stack>
+        <Stack mt={6}>
             <Box sx={{ margin: '20px', marginTop: '30px' }}>
                 <Box sx={{ 
                     display: 'flex',
                     justifyContent: 'space-between', 
-                    margin: '5px'
+                    margin: '5px',
+                    marginBottom: '20px'
                 }}>
                     <Typography variant="h4">商品一覧</Typography>
                     <Button
@@ -99,7 +95,7 @@ const ProductTableContainer = (products: any, updateProduct: any) => {
                 <Drawer isOpen={isOpen} onClose={onClose}>
                     {/* 詳細ページを埋め込む */}
                 </Drawer>
-                <TableContainer sx={{ maxHeight: 440 }}>
+                <TableContainer sx={{ maxHeight: 440, border: '1px solid rgba(210, 215, 211, 1)', borderRadius: 2, borderColor: 'grey' }}>
                     <Table stickyHeader aria-label="sticky table">
                         <TableHead>
                             <TableRow>
@@ -115,18 +111,23 @@ const ProductTableContainer = (products: any, updateProduct: any) => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {products
+                            {products.data.products
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((product: { [x: string]: any; code: Key | null | undefined; }) => {
                                 return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={product.code}>
+                                <TableRow hover={true} selected role="checkbox" tabIndex={-1} key={product.code} onClick={rowClick(product)}>
                                     {columns.map((column) => {
                                     const value = product[column.id];
                                     return (
-                                        <TableCell key={column.id} align={column.align}>
+                                        <TableCell
+                                            key={column.id}
+                                            align={column.align}
+                                            className={column.label == 'description' ? 'whitespace-nowrap text-ellipsis overflow-hidden' : ''}
+                                            style={{maxWidth: column.minWidth}}
+                                        >
                                         {column.format && typeof value === 'number'
                                             ? column.format(value)
-                                            : value}
+                                            : column.label === 'owner' ? value.username : value}
                                         </TableCell>
                                     );
                                     })}
@@ -139,7 +140,7 @@ const ProductTableContainer = (products: any, updateProduct: any) => {
                 <TablePagination
                     rowsPerPageOptions={[10, 25, 100]}
                     component="div"
-                    count={products.length}
+                    count={products.data.products.length}
                     rowsPerPage={rowsPerPage}
                     page={page}
                     onPageChange={handleChangePage}
