@@ -3,6 +3,8 @@ import { AppProps } from 'next/app'
 import { appWithTranslation } from 'next-i18next'
 import Head from 'next/head'
 import { createGlobalStyle } from 'styled-components'
+import { Provider } from 'react-redux';
+import { store } from 'lib/store';
 
 const GlobalStyle = createGlobalStyle`
 html,
@@ -31,6 +33,7 @@ ol, ul {
 `
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+
     return (
         <>
             <Head>
@@ -40,7 +43,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
                 <meta property='og:type' content="website" />
             </Head>
             <GlobalStyle />
-            <Component {...pageProps} />
+            <Provider store={store()}>
+                <Component {...pageProps} />
+            </Provider>
         </>
     )
 }
